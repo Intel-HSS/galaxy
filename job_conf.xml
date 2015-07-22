@@ -56,7 +56,7 @@
         <destination id="condor_1C_4G_ADAM" runner="drmaa">
             <param id="docker_enabled">true</param>
             <param id="docker_volumes">$defaults</param>
-            <param id="nativeSpecification">getenv=True\nrequest_cpus=1\nrequest_memory=4GB\njob_type=adam\nmachine_name=SPARK\nrequirements=(TARGET.SPARK_COMPUTE_NODE =?= True)</param>
+            <param id="nativeSpecification">getenv=True\nrequest_cpus=1\nrequest_memory=4GB\nrequirements=(TARGET.SPARK_COMPUTE_NODE =?= True)</param>
         </destination>
         <destination id="docker_condor_CCC" runner="drmaa">
             <param id="docker_enabled">true</param>
