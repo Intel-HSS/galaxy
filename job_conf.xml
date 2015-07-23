@@ -66,7 +66,7 @@
         <destination id="condor_CCC_1C_4G_ADAM" runner="drmaa">
             <param id="docker_enabled">true</param>
             <param id="docker_volumes">$defaults</param>
-            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse = 5\n+remote_RequestCpus=1\n+remote_RequestMemory=4096\njob_type=adam\nrequirements=(TARGET.SPARK_COMPUTE_NODE =?= True)</param>
+            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse = 5\n+remote_RequestCpus=1\n+remote_RequestMemory=4096\njob_type=adam\n+remote_Requirements=(TARGET.SPARK_COMPUTE_NODE =?= True)</param>
         </destination>
         <destination id="condor_1C_100M_fetch" runner="drmaa">
             <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=transfer</param>
