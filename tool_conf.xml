@@ -2,8 +2,7 @@
 <toolbox>
   <section id="getextccc" name="Get CCC Data"> 
     <tool file="data_source/clinical_pathology_images.xml" />    
-    <tool file="data_source/genomes.xml" /> 
-	<tool file="data_source/rnaseq.xml" />    
+    <tool file="data_source/omics_data.xml" />
   </section>
   <section id="getext" name="Get Data">
     <tool file="data_source/upload.xml" />
@@ -111,7 +110,7 @@
   <section id="cellprofiler" name="CellProfiler">
     <tool file="cellprofiler/cellprofiler.xml" />
   </section>
-  <section id="retrieveThumbnails" name="Retrieve Thumbnails">
+  <section id="retrieveThumbnails" name="OMERO Visualization Tool">
     <tool file="omero/retrieveThumbnails.xml" />
   </section>
   <section id="scores" name="Get Genomic Scores">
@@ -147,6 +146,7 @@
     <tool file="maf/vcf_to_maf_customtrack.xml" />
     <!--<tool file="mutation/visualize.xml" />-->
     <tool file="mutsig_viz/mutsig_viz.xml" />
+    <tool file="hpt_visualizer/hpt_visualizer.xml" />
   </section>
   <section id="multVar" name="Multivariate Analysis">
     <!--<tool file="multivariate_stats/pca.xml" />-->
@@ -246,7 +246,7 @@
     <tool file="sum/test_from_wd.xml" />
   </section>
   <section id="DNA_sequencing" name="DNA sequencing tools">
-    <label id="BWA" text="BWA-MEM 0.7.9a" />
+    <label id="BWA" text="BWA-MEM 0.7.12" />
 	    <tool file="bwa/bwa_mem.xml" />
     <label id="Samtools" text="Samtools version 0.1.19"/>
 	    <tool file="sam_to_bam/sam_to_bam.xml" />
@@ -255,18 +255,21 @@
     <label id="GATK" text="GATK version 3.2"/>
 	    <tool file="gatk/realigner_target_creator.xml" />
 	    <tool file="gatk/indel_realigner.xml" />
+	    <tool file="gatk/indel_realigner_sg.xml" />
 	    <tool file="gatk/base_recalibrator.xml" />
+	    <tool file="gatk/base_recalibrator_sg.xml" />
 	    <tool file="gatk/print_reads.xml" />
 	    <tool file="gatk/haplotype_caller.xml"/>
 	    <tool file="gatk/unified_genotyper.xml"/>
 	    <tool file="gatk/depth_of_coverage.xml"/>
 	    <tool file="gatk/variant_filtration.xml"/>
 	    <tool file="gatk/variant_select.xml" />
-    <label id="Picard" text="Picard version 1.110"/>
-	    <tool file="picard/rgPicardMarkDups.xml" />
+   <label id="Picard" text="Picard version 1.135"/>
+	    <tool file="picard/picard_MarkDuplicates.xml" />
 	    <tool file="picard/picard_SamToFastq.xml" />
-	    <tool file="picard/rgPicardSamFormatConverter.xml" />
-	    <tool file="picard/rgPicardSortSam.xml" />
+	    <tool file="picard/picard_SamFormatConverter.xml" />
+	    <tool file="picard/picard_SortSam.xml" />
+	    <tool file="picard/picard_MergeSamFiles.xml" />
     <label id="BICSeq" text="BICSeq" />
 	    <tool file="Suzi_pipeline/Bic-Seq_samtools.xml" />
 	    <tool file="Suzi_pipeline/Bic-Seq.xml" /> 
@@ -308,6 +311,16 @@
   </section>
   <section id="variant_db_tools" name="Variant DB tools">
     <tool file="variant_db/variant_db_client.xml"/>
+  </section>
+  <section id="adam_tools" name="Adam tools">
+    <tool file="adam/adam_transform_bam_to_adam.xml" />
+    <tool file="adam/adam_convert_vcf_to_adam.xml" />
+    <tool file="adam/adam_flagstat.xml" />
+    <tool file="adam/adam_transform_sort.xml" />
+    <tool file="adam/adam_transform_mark_duplicates.xml" />
+    <tool file="adam/adam_transform_recalibrate_base_qualities.xml" />
+    <tool file="adam/adam_transform_realign_indels.xml" />
+    <tool file="adam/adam_gatk.xml" />
   </section>
   <section id="custom_tools" name="Custom tools">
   </section>
