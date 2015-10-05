@@ -315,4 +315,9 @@
   </section>
   <section id="custom_tools" name="Custom tools">
   </section>
+  <section id="image_tools" name="Image Tools">
+    <tool file="image_tools/write_file.xml" />
+    <tool file="image_tools/run_custom_script.xml" />
+    <tool file="image_tools/image_enhancer.xml" />
+  </section>
 </toolbox>

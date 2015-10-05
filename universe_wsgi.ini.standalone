@@ -26,7 +26,7 @@
 use = egg:Paste#http
 
 # The port on which to listen.
-port = 3927
+port = 5558
 
 # The address on which to listen.  By default, only listen to localhost (Galaxy
 # will not be accessible over the network).  Use '0.0.0.0' to listen on all
@@ -92,7 +92,8 @@ paste.app_factory = galaxy.web.buildapp:app_factory
 # may use a SQLAlchemy connection string to specify an external database
 # instead.  This string takes many options which are explained in detail in the
 # config file documentation.
-database_connection = sqlite:////data2/gururajk/galaxy_db/universe.sqlite?isolation_level=IMMEDIATE
+database_connection = sqlite:////home/vahid.azimi/galaxy/database/universe.sqlite?isolation_level=IMMEDIATE
+
 
 # If the server logs errors about not having enough database pool connections,
 # you will want to increase these values, or consider running more Galaxy
@@ -124,7 +125,7 @@ database_connection = sqlite:////data2/gururajk/galaxy_db/universe.sqlite?isolat
 # instances with pretested installs. The following optin can be used to
 # separate the tool shed install database (all other options listed above 
 # but prefixed with install_ are also available).
-install_database_connection = sqlite:////data2/gururajk/galaxy_db/universe.sqlite?isolation_level=IMMEDIATE
+install_database_connection = sqlite:////home/vahid.azimi/galaxy/database/universe.sqlite?isolation_level=IMMEDIATE
 
 # -- Files and directories
 
@@ -135,10 +136,10 @@ install_database_connection = sqlite:////data2/gururajk/galaxy_db/universe.sqlit
 #rsync_url = rsync://datacache.galaxyproject.org/indexes
 
 # Dataset files are stored in this directory.
-#file_path = database/files
+file_path = /cluster_share/vahid.azimi/Galaxy/database/files
 
 # Temporary files are stored in this directory. (also accessed by jobs submitted to cluster)
-#new_file_path = database/tmp
+new_file_path = /cluster_share/vahid.azimi/Galaxy/database/tmp
 
 # Tool config files, defines what tools are available in Galaxy.
 # Tools can be locally developed or installed from Galaxy tool sheds.
@@ -208,7 +209,7 @@ visualization_plugins_directory = config/plugins/visualizations
 # Each job is given a unique empty directory as its current working directory.
 # This option defines in what parent directory those directories will be
 # created.
-#job_working_directory = database/job_working_directory
+job_working_directory = /cluster_share/vahid.azimi/Galaxy/database/job_working_directory
 
 # If using a cluster, Galaxy will write job scripts and stdout/stderr to this
 # directory.
@@ -658,7 +659,7 @@ id_secret = bdeee49573265793fe0bd2dabf24de86
 # of the server, and will have access to create users, groups, roles,
 # libraries, and more.  For more information, see:
 #   https://wiki.galaxyproject.org/Admin/Interface
-admin_users = gururajk@ohsu.edu
+admin_users = vahid.azimi@ohsu.edu
 
 # Force everyone to log in (disable anonymous access).
 require_login = True
