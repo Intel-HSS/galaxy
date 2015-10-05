@@ -19,7 +19,12 @@
 
       ## Temp Dir?
       #if $tmp_dir :
-         --tmp_dir=$tmp_dir
+         --tmpdir=$tmp_dir
+      #end if
+
+     ## Output BAM File?
+      #if $output_bam :
+         -o $output_bam
       #end if
 
       ## Sort By Name?
@@ -65,7 +70,7 @@
   </command>
   <inputs>
         <param name="input_bam_file" type="data" format="bam" label="BAM file to sort" />
-        <param name="tmp_dir" type="text" label="Temp Directory"  optional="true" help="Directory for temporary files"/>
+        <param name="tmp_dir" type="text" label="Temp Directory"  optional="true" value="./" help="Directory for temporary files"/>
         <param name="memory_limit" type="integer" value="" label="Memory Limit"  optional="true" help="Approximate total memory limit for all threads (by default 2GB)"/>
         <param name="sort_by_name" type="boolean" label="Sort By Name"  optional="true" help="Sort by read name instead of coordinate (lexicographical order)" />  
         <param name="natural_sort" type="boolean" label="Natural Sort"  optional="true" help="Sort by read name instead of coordinate (so-called 'natural' sort as in samtools)" />  
@@ -77,7 +82,7 @@
         <param name="filter" type="text" label="Filter Reads"  optional="true" help="Keep only reads that satisfy FILTER" />  
 </inputs>
   <outputs>
-        <data format="bam" name="output_bam" label="${tool.name} on ${on_string}: output_bam" from_work_dir="sambamba_out/output_bam.bam" />
+        <data format="bam" name="output_bam" label="${tool.name} on ${on_string}: output_bam" from_work_dir="sambamba_out/sambamba_sort_output_bam.bam" />
   </outputs>
   <help>
 
