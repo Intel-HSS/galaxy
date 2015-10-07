@@ -1,0 +1,15 @@
+<tool id="enable_python" name="Custom python code">
+	<description>Run arbitrary Python code</description>
+	<command>FOO="$input_text";
+	 printf '%s\n' "\$FOO" > temp_file.txt;
+	 python $__tool_directory__/custom_python.py temp_file.txt $write_file;
+	</command>
+	<inputs>
+		<param name="input_text" type="text" size="30" label="Python code" area="True">
+		</param>
+	</inputs>
+	<outputs>
+		<data name="write_file" format="py">
+		</data>	
+	</outputs>
+</tool>

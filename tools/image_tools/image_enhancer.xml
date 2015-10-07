@@ -1,0 +1,25 @@
+<tool id="enhance_images" name="Enhance Images" force_history_refresh="True">
+	<description>Apply Color, Brightness, Contrast or Sharpness enhancement to images</description>
+	<command interpreter="python">
+		image_enhancer.py
+		#for $i, $input_files in enumerate( $input_images ):
+		  -i ${input_files.input_files} -o $output1 -b $output1.id -d $__new_file_path__ -e $enhancer -j $value
+		#end for
+	</command>
+	<inputs>
+		<repeat name="input_images" title="Input Image(s)" min="1">
+			<param name="input_files" format="tiff,png" type="data"/>
+		</repeat>
+		<param name="enhancer" type="select" label="Choose Enhancement">
+		  <option value="Color">Color</option>
+		  <option value="Brightness">Brightness</option>
+		  <option value="Contrast">Contrast</option>
+		  <option value="Sharpness">Sharpness</option>
+		</param>
+		<param name="value" size="4" type="float" value="1" label="Enter a value for the enhancement. A value of 1.0 returns the original image.">
+		</param>
+	</inputs>
+	<outputs>
+		<data format="png" name="output1"/>
+	</outputs>
+</tool>
