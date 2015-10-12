@@ -1,0 +1,19 @@
+<tool id="run_custom_script" name="Run Custom Script" version="1.0.0">
+	<description>Run user-defined python script</description>
+	<command>
+		python $script
+		#for $i, $input_files in enumerate( $input_images ):
+		  -i ${input_files.input_files} -o $output1 -b $output1.id -d $__new_file_path__
+		#end for
+	</command>
+	<inputs>
+		<repeat name="input_images" title="Input Image(s)" min="1">
+			<param name="input_files" format="tiff,png" type="data"/>
+		</repeat>
+		<param name="script" type="data" label="Input script from history">
+		</param>
+	</inputs>
+	<outputs>
+		<data format="png" name="output1"/>
+	</outputs>
+</tool>
