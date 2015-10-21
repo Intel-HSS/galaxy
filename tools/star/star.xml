@@ -1,0 +1,278 @@
+<tool id="star" name="STAR" version="2.4.2a">
+  <description>STAR: Spliced Transcripts Alignment to a Reference</description>
+  <requirements>
+    <requirement type="package">samtools</requirement>
+    <!--
+    <container type="docker">ccc.docker/star:2.4.2a</container>
+    -->
+  </requirements>
+  <command interpreter="python">
+
+    ##
+    ## Select genome index or build one if necessary
+    ##
+    
+    #if $refGenomeSource.genomeSource == "history":
+    star.py genomeGenerate
+    --limitGenomeGenerateRAM 31000000000
+    --runThreadN "\${GALAXY_SLOTS:-8}"
+    --genomeDir './'
+    --genomeFastaFiles $refGenomeSource.genomeFasta
+    --sjdbGTFfile $refGenomeSource.gtfFile
+    --sjdbGTFchrPrefix $refGenomeSource.chrPrefix
+    --sjdbGTFfeatureExon $refGenomeSource.featureExon
+    --sjdbGTFtagExonParentTranscript $refGenomeSource.tagExonParentTranscript
+    --sjdbGTFtagExonParentGene $refGenomeSource.tagExonParentGene
+    --sjdbOverhang $refGenomeSource.sjOverhang
+    ;
+    #set index_path = './'
+    #else:
+    #set index_path = $refGenomeSource.index.fields.path
+    #end if
+
+    ##
+    ## Run STAR
+    ##
+    
+    star.py align
+
+    ## Defaults (partial list)
+    --quantMode "GeneCounts"
+    --genomeLoad "NoSharedMemory"
+    --runThreadN "\${GALAXY_SLOTS:-8}"
+    --outSAMtype "BAM SortedByCoordinate"
+    --twopassMode "Basic"
+    --outFileNamePrefix "./"
+
+    ## Options
+    --readFilesCommand $readFilesCmd
+
+
+    ## reference genome
+    --genomeDir $index_path
+
+    ## sequencing reads    
+    #if $singlePaired.isPaired == "paired":
+    --readFilesIn $singlePaired.input1 $singlePaired.input2
+    #else:
+    --readFilesIn $singlePaired.input1
+    #end if
+    
+    #if $markDup_cond.markDup:
+    --bamRemoveDuplicatesType "UniqueIdentical"
+    #end if
+
+    #if $stranded_cond.stranded:
+    --outSAMstrandField "None"
+    --outFilterIntronMotifs "None"
+    #else:
+    --outSAMstrandField "intronMotif"
+    --outFilterIntronMotifs "RemoveNoncanonicalUnannotated"
+    #end if
+    
+    #if $chimeric.detectChimeric:
+    --chimOutType "SeparateSAMold"
+    --chimSegmentMin $chimSegmentMin
+    --chimScoreMin $chimScoreMin
+    --chimScoreSeparation $chimScoreSeparation
+    --chimScoreJunctionNonGTAG $chimScoreJunctionNonGTAG
+    --chimJunctionOverhangMin $chimJunctionOverhangMin
+    #end if
+    
+    ## extra parameters
+    #if $params.settingsType == "full"
+    --outFilterType $params.filterType
+    --outFilterMultimapNmax $params.multiMap
+    --outFilterMismatchNmax $params.misMatch
+    --alignSJoverhangMin $params.SJoverhangMin
+    --alignSJDBoverhangMin $params.SJDBoverhangMin
+    --alignIntronMin $params.minIntron
+    --alignIntronMax $params.maxIntron
+    --alignMatesGapMax $params.maxMatesGap
+    #end if
+    
+    > $logfile
+  </command>
+
+  <inputs>
+    <!-- Genome source. -->
+    <conditional name="refGenomeSource">
+      <param name="genomeSource" type="select" label="Will you select a reference genome from your history or use a built-in STAR genome index?" help="Built-ins were indexed using default options.">
+        <option value="indexed" seleted="true">Use a built-in STAR genome index</option>
+        <option value="history">Use one from the history</option>
+      </param>
+      <when value="indexed">
+        <param name="index" type="select" label="Select the reference genome">
+          <options from_data_table="star_indexes">
+            <validator type="no_options" message="No genome indexes are available" />
+          </options>
+        </param>
+      </when>
+      <when value="history">
+        <param name="genomeFasta" type="data" format="fasta" metadata_name="dbkey" label="Select the reference genome" />
+        <param name="gtfFile" type="data" format="tabular" metadata_name="dbkey" label="Select GTF file with annotations" />
+        <param name="chrPrefix" type="select" label="Prefix for chromosome names in a GTF file" help="e.g. ’chr’ for using ENSMEBL annotations with UCSC geneomes" >
+          <option value="-" selected="True">None</option>
+          <option value="chr">chr</option>
+        </param>
+        <param name="featureExon" type="text" value="exon" label="Feature type in GTF file to be used as exons for building transcripts" />
+        <param name="tagExonParentTranscript" type="text" value="transcript_id" label="Tag name to be used as exons’ transcript-parents" />
+        <param name="tagExonParentGene" type="text" value="gene_id" label="Tag name to be used as exons’ gene-parents" />
+        <param name="sjOverhang" type="integer" min="1" value="100" label="Length of the donor/acceptor sequence on each side of the junctions, ideally = (mate length - 1)" />
+      </when>
+    </conditional>
+ 
+    <!-- readFilesCommand -->
+    <param name="readFilesCmd" type="select" label="UncompressionCommand option" help="The un-compression command that takes the file name as input parameter, and sends the un-compressed output to stdout.">
+      <option value="-" selected="True">Input files are not compressed</option>
+      <option value="zcat">zcat</option>
+      <option value="bzcat">bzcat</option>
+    </param>
+    
+    <!-- FASTQ input(s) and options specifically for paired-end data. -->
+    <conditional name="singlePaired">
+      <param name="isPaired" type="select" label="Is this library mate-paired?">
+        <option value="single">Single-end</option>
+        <option value="paired" selected="true">Paired-end</option>
+      </param>
+      <when value="single">
+        <param format="fastq" name="input1" type="data" label="RNA-Seq FASTQ file" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33"/>
+      </when>
+      <when value="paired">
+        <param format="fastq" name="input1" type="data" label="RNA-Seq FASTQ file, forward reads" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
+        <param format="fastq" name="input2" type="data" label="RNA-Seq FASTQ file, reverse reads" help="Nucleotide-space: Must have Sanger-scaled quality values with ASCII offset 33" />
+      </when>
+    </conditional>
+
+    <!-- mark dups -->
+    <conditional name="markDup_cond">
+      <param name="markDup" type="boolean" checked="True" label="Mark duplicates?" />
+    </conditional>
+
+    <!-- stranded -->
+    <conditional name="stranded_cond">
+      <param name="stranded" type="boolean" checked="True" label="Were these reads generated from a strand-sepecific protocol?" />
+    </conditional>
+    
+    <!-- chimeric detecction -->
+    <conditional name="chimeric">
+      <param name="detectChimeric" type="boolean" checked="False" label="Detect chimeric alignments?" />
+      <when value="true">
+        <param name="chimSegmentMin" type="integer" min="1" value="1" label="minimum length of chimeric segment" />
+        <param name="chimScoreMin" type="integer" min="0" value="0" label="minimum total (summed) score of the chimeric segment" />
+        <param name="chimScoreSeparation" type="integer" min="0" value="10" label="minimum difference between the best chimeric score and the next one" />
+        <param name="chimScoreJunctionNonGTAG" type="integer" value="-1" label="penalty for a non-GT/AG chimeric junction" />
+        <param name="chimJunctionOverhangMin" type="integer" min="0" value="20" label="minimum overhang for a chimeric junction'" />
+      </when>
+    </conditional>
+    
+    <!-- Parameter settings. -->
+    <conditional name="params">
+      <param name="settingsType" type="select" label="Settings to use" help="You can use the default settings or set custom values for any STAR parameter.">
+        <option value="preSet" selected="true">Use Defaults</option>
+        <option value="extended">Addtional parameters</option>
+      </param>
+      <when value="preSet" />
+      <!-- A partial list of advanced params. -->
+      <when value="extended">
+        <param name="filterType" type="select" label="Type of filtering to use" >
+          <option value="Normal" selected="True">Normal</option>
+          <option value="BySJout">BySJout</option>
+        </param>
+        <param name="multiMap" type="integer" min="0" value="10" label="Number of multimapping alignments" />
+        <param name="misMatch" type="integer" min="0" value="10" label="Number of mismatches per read pair" />
+        <param name="multiMap" type="integer" min="0" value="10" label="Number of multimapping alignments" />
+        <param name="SJoverhangMin" type="integer" min="1" value="5" label="minimum overhang (i.e. block size) for spliced alignments" />
+        <param name="SJDBoverhangMin" type="integer" min="1" value="3" label="minimum overhang (i.e. block size) for annotated (sjdb) spliced alignments" />
+        <param name="minIntron" type="integer" min="0" value="21" label="Minimum intron size" />
+        <param name="maxIntron" type="integer" min="0" value="0" label="Maximum intron size. If 0, max intron size will be determined by (2ˆwinBinNbits)*winAnchorDistNbins" />
+        <param name="maxMatesGap" type="integer" min="0" value="0" label="Maximum genomic gap between the mates. If 0, max intron gap will be determined by (2ˆwinBinNbits)*winAnchorDistNbins"/>
+      </when>
+    </conditional>
+  </inputs>
+
+
+  <outputs>
+    <data format="txt" name="logfile" label="${tool.name} on ${on_string}: Log" from_work_dir="Log.out" />
+    <data format="txt" name="output_log" label="${tool.name} on ${on_string}: STAR Mapping Statistics" from_work_dir="Log.final.out" />
+    <data format="tabular" name="counts_matrix" label="${tool.name} on ${on_string}: ReadsPerGene Matrix" from_work_dir="ReadsPerGene.out.tab" />
+    <data format="tabular" name="splice_junctions" label="${tool.name} on ${on_string}: Splice Junctions" from_work_dir="SJ.out.tab" />
+    <data format="bam" name="mapped_reads" label="${tool.name} on ${on_string}: Mapped Reads" from_work_dir="Aligned.sortedByCoord.out.bam" />
+    <data format="sam" name="chimeric_reads" label="${tool.name} on ${on_string}: Chimeric Reads" from_work_dir="Chimeric.out.sam">
+      <filter>chimeric['detectChimeric'] == "true"</filter>
+    </data>
+  </outputs>
+
+
+  <help>
+
+**What it does**
+
+This tool uses STAR_ version 2.4.2a to align FASTA or FASTQ reads to a genome.
+
+
+.. _STAR: https://github.com/alexdobin/STAR
+
+-----
+
+**Outputs**
+
+* Log files [Log.out]
+* BAM alignments sorted by coordinate [Aligned.sortedByCoord.out.bam]
+* Mapping summary statistics [Log.final.out]
+* Splice junctions [SJ.out.tab]
+* Reads counts per gene [ReadsPerGene.out.tab]
+* Chimeric alignments in SAM format [Chimeric.out.sam]
+
+-----
+
+**STAR settings**
+
+All off the options have a default value. You can change most of them. Some of the options in STAR have been implemented here.
+
+-----
+
+**STAR Parameter List**
+
+*Dafaults that cannot be modified*
+
+--quantMode "GeneCounts"
+--genomeLoad "NoSharedMemory"
+--outSAMtype "BAM SortedByCoordinate"
+--twopassMode "Basic"
+
+
+*Options*
+
+--readFilesCommand 
+--runThreadN
+
+--bamRemoveDuplicatesType 
+
+--chimOutType
+--chimSegmentMin 
+--chimScoreMin 
+--chimScoreSeparation 
+--chimScoreJunctionNonGTAG 
+--chimJunctionOverhangMin 
+
+--outFilterType
+--outFilterMultimapNmax 
+--outFilterMismatchNmax 
+--alignSJoverhangMin 
+--alignSJDBoverhangMin 
+--alignIntronMin 
+--alignIntronMax 
+--alignMatesGapMax 
+
+-----
+
+**Citation**
+
+For the underlying tool, please cite:
+
+A. Dobin et al, Bioinformatics 2012; doi: 10.1093/bioinformatics/bts635
+http://bioinformatics.oxfordjournals.org/content/29/1/15
+
+  </help>
+</tool>
