@@ -18,7 +18,7 @@
             <schemaName>lists</schemaName>
             <queryName>images</queryName>
 	    <columnMappings>
-	        <columnMapping columnName="cccDid" fieldKey="CCC_DID"/>
+	        <columnMapping columnName="cccDid" fieldKey="CCC_DID/ccc_did"/>
 	    </columnMappings>
 	</labkeyInstance>
         <labkeyInstance>
@@ -28,7 +28,7 @@
             <schemaName>lists</schemaName>
             <queryName>images</queryName>
             <columnMappings>
-		<columnMapping columnName="cccDid" fieldKey="CCC_DID"/>
+		<columnMapping columnName="cccDid" fieldKey="CCC_DID/ccc_did"/>
 	    </columnMappings>
 	</labkeyInstance>
     </labkeyInstances>
