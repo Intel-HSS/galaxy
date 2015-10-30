@@ -7,17 +7,17 @@
     bqsr_gatherer.py
       -p '
         <!-- start pass through options -->
-      java -cp @JAR_PATH@:./home/mnaik/ccc/bqsr/BQSRGathererUtil.java
-
-      ## Input file(s)
-      #for $i, $input_file in enumerate( $input_files ):
-        "${input_file.input_file}"
-      #end for
+      java -cp /home/mnaik/ccc/gatk-protected/target/GenomeAnalysisTK.jar:/home/mnaik/ccc/bqsr/ BQSRGathererUtil
 
       ## Output File?
       #if $output_file:
          $output_file
       #end if
+      
+      ## Input file(s)
+      #for $i, $input_file in enumerate( $input_files ):
+        "${input_file.input_file}"
+      #end for
          '  <!--- end of pass through options -->
   </command>
   <inputs>
