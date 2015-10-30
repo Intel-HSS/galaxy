@@ -1,0 +1,40 @@
+<tool id="bqsr_gatherer" name="BaseRecalibrator Gatherer" version="0.1">
+  <description>Utility to gather for BaseRecalibrator</description>
+  <requirements>
+    <container type="docker">ccc.docker/bqsr_gatherer:latest</container>
+  </requirements>
+  <command interpreter="python">
+    bqsr_gatherer.py
+      -p '
+        <!-- start pass through options -->
+      java -cp @JAR_PATH@:./home/mnaik/ccc/bqsr/BQSRGathererUtil.java
+
+      ## Input file(s)
+      #for $i, $input_file in enumerate( $input_files ):
+        "${input_file.input_file}"
+      #end for
+
+      ## Output File?
+      #if $output_file:
+         $output_file
+      #end if
+         '  <!--- end of pass through options -->
+  </command>
+  <inputs>
+     <repeat name="input_files" title="Input file" min="1" help="-I,--input_file &amp;lt;input_file&amp;gt;">
+        <param format="grp" name="input_file" type="data" label=" .grp file(s) from BaseRecalibrator" 
+	help="If empty, upload or import a .grp file."/>
+     </repeat>
+  </inputs>
+  <outputs>
+        <data format="log" name="output_file" label="${tool.name} on ${on_string}: output_file" />
+  </outputs>
+  <help>
+
+**What it does**
+
+This tool runs the utility to gather the BaseRecalibrator data.
+
+  </help>
+</tool>
+
