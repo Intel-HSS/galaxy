@@ -22,7 +22,7 @@ def __main__():
     try:
         subprocess.check_output(args=cmd, stderr=subprocess.STDOUT, shell=True)
     except subprocess.CalledProcessError, e:
-        print "!!!!!!!!!!!! Sambamba ERROR: stdout output:\n", e.output
+        print "!!!!!!!!!!!! BQSR GATHERER ERROR: stdout output:\n", e.output
 
 
 if __name__=="__main__": __main__()
