@@ -10,8 +10,8 @@
       java -cp @JAR_PATH@:./home/mnaik/ccc/bqsr/BQSRGathererUtil.java
 
       ## Input file(s)
-      #for $i, $input_file in enumerate( $input_files ):
-        "${input_file.input_file}"
+      #for $i in $input_files:
+        "${i}"
       #end for
 
       ## Output File?
@@ -21,13 +21,11 @@
          '  <!--- end of pass through options -->
   </command>
   <inputs>
-     <repeat name="input_files" title="Input file" min="1" help="-I,--input_file &amp;lt;input_file&amp;gt;">
-        <param format="grp" name="input_file" type="data" label=" .grp file(s) from BaseRecalibrator" 
+        <param format="gatk_report" name="input_files" type="data" multiple="True" label=" .grp file(s) from BaseRecalibrator" 
 	help="If empty, upload or import a .grp file."/>
-     </repeat>
   </inputs>
   <outputs>
-        <data format="log" name="output_file" label="${tool.name} on ${on_string}: output_file" />
+        <data format="gatk_report" name="output_file" label="${tool.name} on ${on_string}: output_file" />
   </outputs>
   <help>
 
