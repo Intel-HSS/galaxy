@@ -281,7 +281,7 @@
 	    <tool file="sambamba/sambamba_sort.xml" />
     <label id="BamUtil" text="BamUtil version 1.0.13" />
 	    <tool file="bamutil/bamutil_dedup.xml" />
-    <label id="Elprep" text"Elprep version 2.34" />
+    <label id="Elprep" text="Elprep version 2.34" />
             <tool file="elprep/elprep.xml" />
   </section>  
   <section id="RNA_sequencing" name="RNA sequencing tools">
