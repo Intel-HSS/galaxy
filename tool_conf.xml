@@ -283,6 +283,8 @@
 	    <tool file="bamutil/bamutil_dedup.xml" />
   </section>  
   <section id="RNA_sequencing" name="RNA sequencing tools">
+     <label id="star" text="Star Version 2.4.2a" />
+            <tool file="star/star.xml" />
      <label id="tophat2" text="Tophat2 version 2.0.14" />
             <tool file="tophat/tophat2_wrapper.xml" />
      <label id="cufflinks" text="Cufflinks version 2.2.1" />
