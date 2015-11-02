@@ -15,7 +15,7 @@
     #if $refGenomeSource.genomeSource == "history":
     star.py genomeGenerate
     --limitGenomeGenerateRAM 31000000000
-    --runThreadN "\${GALAXY_SLOTS:-8}"
+    --runThreadN 8
     --genomeDir './'
     --genomeFastaFiles $refGenomeSource.genomeFasta
     --sjdbGTFfile $refGenomeSource.gtfFile
@@ -39,14 +39,13 @@
     ## Defaults (partial list)
     --quantMode "GeneCounts"
     --genomeLoad "NoSharedMemory"
-    --runThreadN "\${GALAXY_SLOTS:-8}"
+    --runThreadN 8
     --outSAMtype "BAM SortedByCoordinate"
     --twopassMode "Basic"
     --outFileNamePrefix "./"
 
     ## Options
     --readFilesCommand $readFilesCmd
-
 
     ## reference genome
     --genomeDir $index_path
@@ -72,11 +71,11 @@
     
     #if $chimeric.detectChimeric:
     --chimOutType "SeparateSAMold"
-    --chimSegmentMin $chimSegmentMin
-    --chimScoreMin $chimScoreMin
-    --chimScoreSeparation $chimScoreSeparation
-    --chimScoreJunctionNonGTAG $chimScoreJunctionNonGTAG
-    --chimJunctionOverhangMin $chimJunctionOverhangMin
+    --chimSegmentMin $chimeric.chimSegmentMin
+    --chimScoreMin $chimeric.chimScoreMin
+    --chimScoreSeparation $chimeric.chimScoreSeparation
+    --chimScoreJunctionNonGTAG $chimeric.chimScoreJunctionNonGTAG
+    --chimJunctionOverhangMin $chimeric.chimJunctionOverhangMin
     #end if
     
     ## extra parameters
@@ -199,7 +198,7 @@
     <data format="tabular" name="splice_junctions" label="${tool.name} on ${on_string}: Splice Junctions" from_work_dir="SJ.out.tab" />
     <data format="bam" name="mapped_reads" label="${tool.name} on ${on_string}: Mapped Reads" from_work_dir="Aligned.sortedByCoord.out.bam" />
     <data format="sam" name="chimeric_reads" label="${tool.name} on ${on_string}: Chimeric Reads" from_work_dir="Chimeric.out.sam">
-      <filter>chimeric['detectChimeric'] == "true"</filter>
+      <filter>chimeric['detectChimeric']</filter>
     </data>
   </outputs>
 
