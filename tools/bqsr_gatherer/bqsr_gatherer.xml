@@ -7,7 +7,7 @@
     bqsr_gatherer.py
       -p '
         <!-- start pass through options -->
-      java -cp /home/mnaik/ccc/gatk-protected/target/GenomeAnalysisTK.jar:/home/mnaik/ccc/bqsr/ BQSRGathererUtil
+      java -cp \$GATK_34_PATH:\$BQSR_PATH BQSRGathererUtitl
       ## Input file(s)
       #for $i in $input_files:
         "${i}"

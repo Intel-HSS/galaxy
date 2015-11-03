@@ -15,6 +15,8 @@ export SAMTOOLS_EXE_PATH=$SAMTOOLS_DIR/samtools
 export SAMTOOLS_v020_EXE_PATH=$GENOMICS_DIR/ohsu/dnapipeline/samtools/samtools/samtools
 export PICARD_PATH=$GENOMICS_DIR/ohsu/dnapipeline/picard-tools-1.135/dist
 export GATK_JAR_PATH=$GENOMICS_DIR/GATK-3.2/target/GenomeAnalysisTK.jar
+export GATK_34_PATH=$GENOMICS_DIR/ohsu/dnapipeline/GATK-3.4-protected/target/GenomeAnalysisTK.jar
+export BQSR_PATH=$GENOMICS_DIR/ohsu/dnapipeline/bqsr/
 #FIXME
 export CP_PATH=$CCC_SYNC_DIR/tools/cellprofiler/cp_pipeline
 export LABKEY_USERNAME=ccc@ccc.com
@@ -37,7 +39,7 @@ export SPARK_HOME=/opt/cloudera/parcels/CDH/lib/spark
 export ADAM_HOME=/opt/adam/adam-distribution-0.16.0
 export SAMBAMBA_PATH=$GENOMICS_DIR/ohsu/dnapipeline/sambamba-0.5.8/
 export BAMUTIL_PATH=$GENOMICS_DIR/ohsu/dnapipeline/bamUtil_1.0.13/bamUtil/bin/
-export PATH=$BAMUTIL_PATH:$SAMBAMBA_PATH:$PINDEL_PATH:$BREAKDANCER_PATH:$TOPHAT_EXE_PATH:$CUFFLINKS_TOOLS_EXE_PATH:$BOWTIE_TOOLS_EXE_PATH:$GENOMICS_DIR:$BWA_DIR:$SAMTOOLS_DIR:$SAMTOOLS_v020_EXE_PATH:$PICARD_PATH:$PYTHON_2_7_PATH/bin:$SPARK_HOME/bin:$ADAM_HOME/bin:$PATH
+export PATH=$BQSR_PATH:$GATK_34_PATH:$BAMUTIL_PATH:$SAMBAMBA_PATH:$PINDEL_PATH:$BREAKDANCER_PATH:$TOPHAT_EXE_PATH:$CUFFLINKS_TOOLS_EXE_PATH:$BOWTIE_TOOLS_EXE_PATH:$GENOMICS_DIR:$BWA_DIR:$SAMTOOLS_DIR:$SAMTOOLS_v020_EXE_PATH:$PICARD_PATH:$PYTHON_2_7_PATH/bin:$SPARK_HOME/bin:$ADAM_HOME/bin:$PATH
 export NSLOTS=16
 export GALAXY_SLOTS=16
 export PYTHON_EGG_CACHE=.eggs_cache
