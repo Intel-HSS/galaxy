@@ -15,6 +15,8 @@ export SAMTOOLS_EXE_PATH=$SAMTOOLS_DIR/samtools
 export SAMTOOLS_v020_EXE_PATH=$GENOMICS_DIR/ohsu/dnapipeline/samtools/samtools/samtools
 export PICARD_PATH=$GENOMICS_DIR/ohsu/dnapipeline/picard-tools-1.135/dist
 export GATK_JAR_PATH=$GENOMICS_DIR/GATK-3.2/target/GenomeAnalysisTK.jar
+export GATK_34_PATH=$GENOMICS_DIR/ohsu/dnapipeline/GATK-3.4-protected/target/GenomeAnalysisTK.jar
+export BQSR_PATH=$GENOMICS_DIR/ohsu/dnapipeline/bqsr/
 #FIXME
 export CP_PATH=$CCC_SYNC_DIR/tools/cellprofiler/cp_pipeline
 export LABKEY_USERNAME=ccc@ccc.com
