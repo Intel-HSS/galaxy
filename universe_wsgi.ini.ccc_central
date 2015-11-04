@@ -356,10 +356,6 @@ remote_datasets_referral_method = uuid
 # Default: False
 use_CCC_DRMAA = True 
 
-# File containing the list of environment variables to pass to the CCC WFM
-# Default: contrib/intel_env_vars_list.txt
-CCC_env_vars_list_file = contrib/intel_env_vars_list.txt
-
 #Directory where the CCC WFM stores results
 CCC_results_dir = /cluster_share/Galaxy/database/results
 
