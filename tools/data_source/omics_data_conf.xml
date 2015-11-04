@@ -22,8 +22,8 @@
         <columnMapping columnName="specimen_classification" fieldKey="specimen_id/disease_state"/>
         <columnMapping columnName="specimen_type" fieldKey="specimen_id/disease_type"/>
         <columnMapping columnName="donor_gender" fieldKey="specimen_id/donor_gender"/>
-        <columnMapping columnName="fastq_forward_ccc_did" fieldKey="fastq_forward"/>
-        <columnMapping columnName="fastq_reverse_ccc_did" fieldKey="fastq_reverse"/>
+        <columnMapping columnName="fastq_forward_ccc_did" fieldKey="fastq_forward/ccc_did"/>
+        <columnMapping columnName="fastq_reverse_ccc_did" fieldKey="fastq_reverse/ccc_did"/>
       </columnMappings>
     </labkeyInstance>
     <labkeyInstance>
@@ -38,8 +38,8 @@
         <columnMapping columnName="specimen_classification" fieldKey="specimen_id/disease_state"/>
         <columnMapping columnName="specimen_type" fieldKey="specimen_id/disease_type"/>
         <columnMapping columnName="donor_gender" fieldKey="specimen_id/donor_gender"/>
-        <columnMapping columnName="fastq_forward_ccc_did" fieldKey="fastq_forward"/>
-        <columnMapping columnName="fastq_reverse_ccc_did" fieldKey="fastq_reverse"/>
+        <columnMapping columnName="fastq_forward_ccc_did" fieldKey="fastq_forward/ccc_did"/>
+        <columnMapping columnName="fastq_reverse_ccc_did" fieldKey="fastq_reverse/ccc_did"/>
       </columnMappings>
     </labkeyInstance>
   </labkeyInstances>
