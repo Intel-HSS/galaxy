@@ -29,9 +29,12 @@
 	<!-- Destinations define details about remote resources and how jobs
 	should be executed on those remote resources.
 	-->
-	<destination id="local" runner="local" metrics="off"/>
-	<destination id="condor_16C_16G" runner="drmaa">
-	  <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=16 GB\nrequirements=(machine=="c14.spark0.intel.com")</param>
+        <destination id="local" runner="local" metrics="off"/>
+        <destination id="condor_16C_16G" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=16 GB</param>
+        </destination>
+        <destination id="condor_16C_64G" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=64 GB</param>
         </destination>
         <destination id="condor_CCC" runner="drmaa">
             <param id="nativeSpecification">getenv=True\n+remote_jobuniverse = 5\n+remote_RequestCpus=16\n+remote_RequestMemory=16384</param>
@@ -83,6 +86,7 @@
         <tool id="adam_transform_recalibrate_base_qualities" destination="condor_1C_4G_ADAM"/>
         <tool id="adam_transform_realign_indels" destination="condor_1C_4G_ADAM"/>
         <tool id="adam_gatk" destination="condor_1C_4G_ADAM"/>
+        <tool id="star" destination="condor_16C_64G"/>
     </tools>
     <limits>
         <!-- Certain limits can be defined. -->
