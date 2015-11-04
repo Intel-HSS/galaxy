@@ -263,6 +263,7 @@
 	    <tool file="gatk/base_recalibrator.xml" />
 	    <tool file="gatk/base_recalibrator_sg.xml" />
 	    <tool file="gatk/print_reads.xml" />
+	    <tool file="gatk/print_reads_sg.xml" />
 	    <tool file="gatk/haplotype_caller.xml"/>
 	    <tool file="gatk/unified_genotyper.xml"/>
 	    <tool file="gatk/depth_of_coverage.xml"/>
@@ -292,8 +293,12 @@
 	    <tool file="sambamba/sambamba_sort.xml" />
     <label id="BamUtil" text="BamUtil version 1.0.13" />
 	    <tool file="bamutil/bamutil_dedup.xml" />
+    <label id="BQSRGatherer" text="BaseRecalibrator Gatherer "/>
+            <tool file="bqsr_gatherer/bqsr_gatherer.xml"/>
   </section>  
   <section id="RNA_sequencing" name="RNA sequencing tools">
+     <label id="star" text="Star Version 2.4.2a" />
+            <tool file="star/star.xml" />
      <label id="tophat2" text="Tophat2 version 2.0.14" />
             <tool file="tophat/tophat2_wrapper.xml" />
      <label id="cufflinks" text="Cufflinks version 2.2.1" />
