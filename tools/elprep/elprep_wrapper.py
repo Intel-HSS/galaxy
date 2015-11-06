@@ -12,22 +12,14 @@ def cleanup_before_exit( tmp_dir ):
 
 
 # Function to create a symbolic link of the input.dat file to a /tmpDir/input.sam or /tmpDir/input.bam file
-def symlink_elprep_input_filename( filename, filetype, target_dir = None ):
+def symlink_elprep_input_filename( filename, tmp_file, filetype, target_dir = None ):
     if target_dir is None:
         target_dir = os.getcwd()
-    print filename
-    base_filename = os.path.basename(filename)
-    print base_filename
-    new_filename = os.path.join( "%s.%s" % (base_filename, filetype ) )
-    new_input_file = os.path.join ( "%s/%s" % (target_dir, new_filename) )
-    print new_input_file
-    #Adding a check for file existent or not
-    if not os.path.isfile(new_input_file):
-        shutil.copyfile ( filename, new_input_file)
-        #shutil.copy2( filename, new_input_file)
-	#os.symlink( filename, new_input_file )
-    return new_input_file
-
+    new_filename = os.path.join( "%s.%s" % (tmp_file, filetype ) )
+    #Adding a check to see if file exists or not
+    if not os.path.isfile(new_filename):
+	os.symlink( filename, new_filename )
+    return new_filename
 
 def __main__():
     #Parse Command Line
@@ -48,10 +40,8 @@ def __main__():
          tmp_input_file = tempfile.NamedTemporaryFile( dir=tmp_dir )
          tmp_input_filename = tmp_input_file.name
          tmp_input_file.close()
-         new_tmp_input = os.path.join( "%s.%s" % (tmp_input_filename, options.input_file_type ) )
-         shutil.copyfile ( options.input, new_tmp_input)
-         #new_tmp_input = symlink_elprep_input_filename(options.input, options.input_file_type, tmp_input_filename, target_dir = tmp_dir)
-	 print new_tmp_input 
+         tmp_input_filename = symlink_elprep_input_filename(options.input, tmp_input_filename, options.input_file_type, target_dir = tmp_dir)
+	 print tmp_input_filename
 
     if options.output:
          tmp_output_file = tempfile.NamedTemporaryFile( dir=tmp_dir )
@@ -61,11 +51,8 @@ def __main__():
          print tmp_output_filename
 
     #Construct the new command line 
-    cmd = 'elprep %s %s %s' % ( options.pass_through_options, new_tmp_input, tmp_output_filename )
-    #cmd = 'elprep %s %s %s' % ( options.pass_through_options, tmp_input_filename, tmp_output_filename )
-    #cmd = 'elprep %s /home/aprabh2/tmp.bam %s' % ( tmp_input_filename, options.pass_through_options )
-    print "Command:"
-    print cmd
+    cmd = 'elprep %s %s %s' % ( options.pass_through_options, tmp_input_filename, tmp_output_filename )
+    print "Command: %s" % (cmd )
  
     #Run the Elprep program
     try:
