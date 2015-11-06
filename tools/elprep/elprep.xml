@@ -115,9 +115,9 @@
 
 **What it does**
 
-This tool uses Elprep to mark duplicate reads in a BAM file.
+This tool wrapper calls Elprep program to Remove unmapped reads, Sort Contig order, Sort coordinate order, Marks duplicate reads and Add RG information in SAM/BAM files.
 
-https://github.com/exascience/elprep
+Further details about elprep can be found at: https://github.com/exascience/elprep
 
   </help>
 </tool>
