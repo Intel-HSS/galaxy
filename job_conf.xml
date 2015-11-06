@@ -31,6 +31,9 @@
         <destination id="condor_16C_16G" runner="drmaa">
             <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=16 GB</param>
         </destination>
+        <destination id="condor_16C_64G" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=64 GB</param>
+        </destination>
         <destination id="condor_galaxy" runner="drmaa" metrics="off">
             <param id="nativeSpecification">getenv=True\nrequest_cpus=2\nrequest_memory=8 GB\nrequirements=(machine=="exanode-0-23.local")</param>
         </destination>
@@ -72,6 +75,7 @@
         <tool id="adam_transform_recalibrate_base_qualities" destination="condor_1C_4G_ADAM"/>
         <tool id="adam_transform_realign_indels" destination="condor_1C_4G_ADAM"/>
         <tool id="adam_gatk" destination="condor_1C_4G_ADAM"/>
+        <tool id="star" destination="condor_16C_64G"/>
     </tools>
     <limits>
         <!-- Certain limits can be defined. -->
