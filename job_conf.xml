@@ -54,6 +54,15 @@
         <destination id="condor_1C_100M" runner="drmaa">
             <param id="nativeSpecification">getenv=True\nrequest_cpus=1\nrequest_memory=100 MB</param>
         </destination>
+        <destination id="condor_CCC" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse = 5\n+remote_RequestCpus=16\n+remote_RequestMemory=16384</param>
+        </destination>
+	<destination id="condor_remote_g1" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\nuniverse=grid\ngrid_resource = condor g1.spark0.intel.com g1.spark0.intel.com\nremote_universe = vanilla\n+remote_RequestCpus=8\n+remote_RequestMemory=8192</param>
+        </destination>
+	<destination id="condor_remote_g2" runner="drmaa">
+            <param id="nativeSpecification">getenv=True\nuniverse=grid\ngrid_resource = condor g2.spark0.intel.com g2.spark0.intel.com\nremote_universe = vanilla\n+remote_RequestCpus=8\n+remote_RequestMemory=8192</param>
+	</destination>
         <destination id="docker_condor_16C_16G" runner="drmaa">
             <param id="docker_enabled">true</param>
             <param id="docker_volumes">$defaults</param>
