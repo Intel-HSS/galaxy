@@ -190,25 +190,26 @@ def __main__():
             if not options.rglb or not options.rgsm or not options.rglb:
                 sys.exit( 'If you want to specify read groups, you must include the ID, LB, and SM tags.') 
             #readGroup = '@RG\tID:%s\tLB:%s\tPL:%s\tSM:%s' % ( options.rgid, options.rglb, options.rgpl, options.rgsm )
-            readGroup = '@RG\tID:%s\tLB:%s\tSM:%s' % ( options.rgid, options.rglb, options.rgsm )
+            # Processing READGROUP with a literal tab character instead of \t to ensure the CL tag in @PG header can process the RG. 
+            readGroup = '@RG\\tID:%s\\tLB:%s\\tSM:%s' % ( options.rgid, options.rglb, options.rgsm )
             if options.rgpl:
-                readGroup += '\tPL:%s' % options.rgpl
+                readGroup += '\\tPL:%s' % options.rgpl
             if options.rgpu:
-                readGroup += '\tPU:%s' % options.rgpu
+                readGroup += '\\tPU:%s' % options.rgpu
             if options.rgcn:
-                readGroup += '\tCN:%s' % options.rgcn
+                readGroup += '\\tCN:%s' % options.rgcn
             if options.rgds:
-                readGroup += '\tDS:%s' % options.rgds
+                readGroup += '\\tDS:%s' % options.rgds
             if options.rgdt:
-                readGroup += '\tDT:%s' % options.rgdt
+                readGroup += '\\tDT:%s' % options.rgdt
             if options.rgfo:
-                readGroup += '\tFO:%s' % options.rgfo
+                readGroup += '\\tFO:%s' % options.rgfo
             if options.rgks:
-                readGroup += '\tKS:%s' % options.rgks
+                readGroup += '\\tKS:%s' % options.rgks
             if options.rgpg:
-                readGroup += '\tPG:%s' % options.rgpg
+                readGroup += '\\tPG:%s' % options.rgpg
             if options.rgpi:
-                readGroup += '\tPI:%s' % options.rgpi
+                readGroup += '\\tPI:%s' % options.rgpi
             start_cmds += " -R '%s'" % readGroup
 
     if options.genAlignType == 'paired':
