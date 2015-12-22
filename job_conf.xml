@@ -17,7 +17,6 @@
             <!--<param id="internalexception_retries">0</param>-->
         </plugin>
     </plugins>
-<<<<<<< HEAD
     <handlers default="handlers">
       <!--<handler id="handler"  tags="handlers"/>-->
       <handler id="main"  tags="handlers"/>
@@ -30,20 +29,6 @@
 	<!-- Destinations define details about remote resources and how jobs
 	should be executed on those remote resources.
 	-->
-	<destination id="local" runner="local" metrics="off"/>
-	<destination id="condor_16C_16G" runner="drmaa">
-	  <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=16 GB\nrequirements=(machine=="c14.spark0.intel.com")</param>
-=======
-    <handlers default="main">
-        <handler id="main"  tags="handlers"/>
-        <!-- Additional job handlers - the id should match the name of a
-        [server:id] in universe_wsgi.ini.
-        -->
-    </handlers>
-    <destinations default="condor_16C_16G">
-        <!-- Destinations define details about remote resources and how jobs
-        should be executed on those remote resources.
-        -->
         <destination id="local" runner="local" metrics="off"/>
         <destination id="condor_16C_16G" runner="drmaa">
             <param id="nativeSpecification">getenv=True\nrequest_cpus=16\nrequest_memory=16 GB</param>
@@ -53,7 +38,6 @@
         </destination>
         <destination id="condor_galaxy" runner="drmaa" metrics="off">
             <param id="nativeSpecification">getenv=True\nrequest_cpus=2\nrequest_memory=8 GB\nrequirements=(machine=="exanode-0-23.local")</param>
->>>>>>> dev
         </destination>
         <destination id="condor_CCC" runner="drmaa">
             <param id="nativeSpecification">getenv=True\n+remote_jobuniverse = 5\n+remote_RequestCpus=16\n+remote_RequestMemory=16384</param>
