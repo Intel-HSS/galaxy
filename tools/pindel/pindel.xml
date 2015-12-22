@@ -1,4 +1,4 @@
-<tool id="pindel" name="pindel" version="0.0.1">
+<tool id="pindel" name="pindel" version="0.2.5b4">
     <description></description>
 
     <requirements>
