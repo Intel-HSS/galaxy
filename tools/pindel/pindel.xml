@@ -1,8 +1,8 @@
-<tool id="pindel" name="pindel" version="0.2.5b4">
+<tool id="pindel" name="pindel" version="0.2.5a8">
     <description></description>
 
     <requirements>
-        <container type="docker">pindel:0.2.5b4</container>
+        <container type="docker">pindel:0.2.5a8</container>
     </requirements>
 
     <command interpreter="python">

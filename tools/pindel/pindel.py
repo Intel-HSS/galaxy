@@ -238,6 +238,7 @@ def __main__():
     parser.add_argument('--no_clean', action="store_true", default=False)
 
     args = parser.parse_args()
+    pindel_path = os.environ['PINDEL_PATH']
 
     inputBamFiles = list( os.path.abspath(a) for a in args.inputBamFiles )
     if len(inputBamFiles) == 0:
@@ -346,7 +347,7 @@ def __main__():
                 handle.write("indel.filter.referencedate = %s\n" % (datetime.datetime.now().strftime("%Y%m%d")) )
                 handle.write("indel.filter.output = %s\n" % (args.outputSomaticVcfFile))
             
-            execute("%s /home/exacloud/clinical/RichardsLab/bin/somatic_indelfilter.pl %s" % (which("perl"), os.path.join(args.workdir, "somatic.indel.filter.config")) )
+            execute("%s %s/somatic_filter/somatic_indelfilter.pl %s" % (which("perl"), pindel_path, os.path.join(args.workdir, "somatic.indel.filter.config")) )
             
                 
 
