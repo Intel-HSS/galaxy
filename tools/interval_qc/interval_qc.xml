@@ -1,0 +1,29 @@
+<tool id="interval_qc" name="Create 3 QC Metrics Sheets" version="0.1" >
+  <description> Create QC metrics from GATK DepthOfCoverage per locus output.</description>
+  <command interpreter="python">interval_qc.py
+    $interval_file $doc_0 $doc_30 $outfile_exon $probes $outfile_interval $outfile_gene $genes
+  </command>
+
+  <inputs>   
+    <param name="interval_file" type="data" format="tabular" label="Interval List" />
+    <param name="doc_0" type="data" format="tabular" label="DepthOfCoverage per locus mbq0" />
+    <param name="doc_30" type="data"  format="tabular" label="DepthOfCoverage per locus mbq30" />
+    <param name="probes" type="data"  format="interval_list" label="Probe intervals" />
+    <param name="genes" type="data"  format="tabular" label="Gene Boundaries" />
+  </inputs>
+
+  <outputs>
+    <data format="txt" name="outfile_exon" label="DepthOfCoverage Exon QC Stats" />
+    <data format="txt" name="outfile_interval" label="DepthOfCoverage Interval QC Stats" />
+    <data format="txt" name="outfile_gene" label="DepthOfCoverage Gene QC Stats" />    
+  </outputs>
+
+  <tests>
+
+  </tests>
+  <help>
+    Calculates Q30% and percentages of depths above a certain threshold on both the genomic interval and gene levels.  Output is tsv to be imported in to CGD.
+
+  </help>
+</tool>
+
