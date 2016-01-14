@@ -1155,20 +1155,20 @@ class JobWrapper( object ):
                     return fetch_path;
                 return None;
             def get_path_on_central_site_if_exists_from_dts(dataset_uuid):
-                cmd='unset http_proxy;curl http://127.0.0.1:8900/api/v1/dts/file/'+dataset_uuid;
+                cmd='unset http_proxy;curl '+ self.app.config.CCC_DTS_query_url + '/' + dataset_uuid;
                 pd = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE);
                 stdout_string = pd.communicate()[0];
                 if(stdout_string != "" and stdout_string != "null"):
                     dsinfo_dict = library_json.loads(stdout_string);
-                    if 'locations' in dsinfo_dict:
-                        if 'value' in dsinfo_dict['locations']:
-                            list_locations = library_json.loads(dsinfo_dict['locations']['value']);
-                            for site_location in list_locations:
-                                #print(site_location);
-                                if('name' in site_location and 'path' in site_location):
-                                    full_path = site_location['path'] + os.path.sep + site_location['name'];
-                                    if(os.path.exists(full_path)):
-                                        return full_path;
+                    if 'locations' in dsinfo_dict and 'name' in dsinfo_dict:
+                        dts_dataset_name = dsinfo_dict['name'];
+                        list_locations = dsinfo_dict['locations'];
+                        for site_location in list_locations:
+                            #print(site_location);
+                            if('path' in site_location):
+                                full_path = site_location['path'] + os.path.sep + dts_dataset_name;
+                                if(os.path.exists(full_path)):
+                                    return full_path;
                 return None;
             #Karthik: for "remote" datasets created on the central site, create symlinks to real file
             path_on_central_site = None;

@@ -359,6 +359,9 @@ use_CCC_DRMAA = True
 #Directory where the CCC WFM stores results
 CCC_results_dir = /cluster_share/Galaxy/database/results
 
+#CCC DTS query URL
+CCC_DTS_query_url = http://127.0.0.1:8900/api/v1/dts/file/
+
 #Galaxy infrastructure URL
 galaxy_infrastructure_url=http://central-gateway.ccc.org:5563
 
