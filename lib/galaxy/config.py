@@ -325,6 +325,7 @@ class Configuration( object ):
         #CCC
         self.use_CCC_DRMAA = string_as_bool( kwargs.get( 'use_CCC_DRMAA', False ) );
         self.CCC_results_dir = kwargs.get( 'CCC_results_dir', self.job_working_directory );
+        self.CCC_DTS_query_url = kwargs.get( 'CCC_DTS_query_url', 'http://127.0.0.1:8900/api/v1/dts/file/' );
         # Handle AWS-specific config options for backward compatibility
         if kwargs.get( 'aws_access_key', None) is not None:
             self.os_access_key = kwargs.get( 'aws_access_key', None )
