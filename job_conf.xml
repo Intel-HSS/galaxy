@@ -25,7 +25,7 @@
         [server:id] in universe_wsgi.ini.
         -->
     </handlers>
-<destinations default="docker_condor_CCC">
+    <destinations default="condor_CCC">
         <!-- Destinations define details about remote resources and how jobs
         should be executed on those remote resources.
         -->
@@ -83,10 +83,10 @@
             <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=transfer</param>
         </destination>
         <destination id="condor_1C_100M_central" runner="drmaa">
-            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=enclave\n+remote_Requirements=(isUndefined(TARGET.IsHarmonyPointTPUExecutor))</param>
+            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=localized\n+remote_Requirements=(isUndefined(TARGET.IsHarmonyPointTPUExecutor))</param>
         </destination>
         <destination id="condor_1C_100M_central_gateway" runner="drmaa">
-            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=enclave\n+remote_Requirements=(!isUndefined(TARGET.GatewayNode))</param>
+            <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=localized\n+remote_Requirements=(!isUndefined(TARGET.GatewayNode))</param>
         </destination>
         <destination id="condor_HPt" runner="drmaa">
             <param id="nativeSpecification">getenv=True\n+remote_jobuniverse=5\n+remote_RequestCpus=1\n+remote_RequestMemory=100\njob_type=enclave\n+remote_Requirements=(!isUndefined(TARGET.IsHarmonyPointTPUExecutor))</param>
