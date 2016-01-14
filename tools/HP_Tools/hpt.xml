@@ -1,32 +1,11 @@
 <tool id="hpt" name="Application">
   <description></description>
-  <command interpreter="python">/opt/HarmonyPoint/Galaxy/galaxy-dist/tools/HP_Tools/submitter/submitter.py $input1 $input2 $output</command>
+  <command>/bin/cat $dag > $hpt_output</command>
   <inputs>
-    <param name="input1" type="select" label="Select Application">
-       <option value="ohsu">ohsu</option>
-    </param>
-    <param name="input3" type="select" label="Select Cancer Type">
-       <option value="breast">breast</option>
-       <option value="liver">liver</option>
-       <option value="blood">blood</option>
-       <option value="skin">skin</option>
-       <option value="kidney">kidney</option>
-    </param>
-    <param name="input4" type="text" area="True" label="Gateway URL's" value="austin-gateway.ccc.org, pdx-gateway.ccc.org">
-      <sanitizer>
-        <valid initial="string.printable">
-        </valid>
-      </sanitizer>
-    </param>
-    <param name="input2" type="text" area="True" label="Arguments for the Application" value="--oncotator -r /cluster_share/fs-mount/OHSU/container_data_instr/hp_test_data/oncotator_files -i /cluster_share/fs-mount/OHSU/datasource -o /mnt/App/exampleOutput.tsv -mutsig -r /cluster_share/fs-mount/OHSU/container_data_instr/hp_test_data/mutsig_files -o">
-      <sanitizer>
-        <valid initial="string.printable">
-        </valid>
-      </sanitizer>
-    </param>
+    <param name="dag" type="data" format="txt" label="dag"/>
   </inputs>
- <outputs>
-    <data format="text" name="output" />
+  <outputs>
+    <data name="hpt_output" label="hpt_output" format="input"/>
   </outputs>
 
   <help>
