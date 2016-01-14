@@ -1,0 +1,124 @@
+<tool id="elprep" name="Elprep" version="2.34">
+  <description>Remove unmapped reads, Sort Contig order, Sort coordinate order, Marks duplicate reads and Add RG information in SAM/BAM files</description>
+  <requirements>
+    <requirement type="package" version="2.34">elprep</requirement>
+    <container type="docker">ccc.docker/elprep:latest</container>
+  </requirements>
+  <command interpreter="python">
+    elprep_wrapper.py
+      --input $input_file
+      --input_file_type $input_file_type
+      --output $output_file
+
+      -p '
+        <!-- start pass through options -->
+      ## Replace Reference Sequences?
+      #if $replace_reference_sequences :
+         --replace-reference-sequences $replace_reference_sequences
+      #end if
+
+      ## Filter Unmapped Reads?
+      #if $filter_unmapped_reads :
+         --filter-unmapped-reads $filter_unmapped_reads
+      #end if
+
+      ## Replace Read Group?
+      #if $replace_read_group :
+         --replace-read-group $replace_read_group
+      #end if
+
+      ## Mark Duplicates?
+      #if $mark_duplicates_options :
+         --mark-duplicates $mark_duplicates_options
+      #else 
+         --mark-duplicates
+      #end if
+ 
+      ## Sorting Order?
+      #if $sorting_order :
+         --sorting-order $sorting_order
+      #end if
+ 
+      ## Clean SAM?
+      #if $clean_sam :
+         --clean-sam
+      #end if
+
+      ## Number of threads
+      #if $num_threads :
+         --nr-of-threads $num_threads
+      #else 
+         --nr-of-threads "\${GALAXY_SLOTS:-16}"
+      #end if
+
+      ## GC On?
+      #if $gc_on :
+         --gc-on $gc_on
+      #end if
+
+      ## Timed?
+      #if $timed :
+         --timed
+      #end if
+
+      ## Reference t?
+      #if $reference_t_fai :
+         --reference-t $reference_t_fai
+      #end if
+
+      ## Reference T?
+      #if $reference_T_fasta :
+         --reference-T $reference_T_fasta
+      #end if
+
+      ## Split File?
+      #if $split_file :
+         --split-file
+      #end if
+
+         '  <!--- end of pass through options -->
+  </command>
+  <inputs>
+        <param name="input_file" type="data" format="sam,bam" label="SAM or BAM file in which to mark duplicate reads"  />
+        <param name="input_file_type" type="select" value="sam" label="REQUIRED: Choose input file type for Elprep">
+           <option value="sam" selected="true">Sam</option>
+           <option value="bam">Bam</option>
+        </param>
+        <param name="replace_reference_sequences" type="data" format="sam,bam" label="Replace Reference Sequences"  optional="true" help="Replace Reference Sequences" />  
+        <param name="filter_unmapped_reads" type="boolean"  optional="true" falsevalue="" truevalue="strict" label="Filter Unmapped Reads" help="Filter Unmapped Reads" />
+        <param name="replace_read_group" type="text" label="Replace Read Group"  optional="true" help="Replace Read Group"/>
+        <param name="mark_duplicates_options" type="select"  optional="true" display="checkboxes" multiple="true" label="Mark Duplicates Options" help="Mark Duplicates Options">
+              <option value="remove">Remove</option>
+              <option value="deterministic">Deterministic</option>
+        </param>
+        <param name="sorting_order" type="select" value="coordinate" optional="true" label="Sorting Order" help="Sorting Order">
+              <option value="keep">Keep</option>
+              <option value="unknown">Unknown</option>
+              <option value="unsorted">Unsorted</option>
+              <option value="queryname">Queryname</option>
+              <option value="coordinate" selected="true">Coordinate</option>
+        </param>
+        <param name="clean_sam" type="boolean" label="Clean SAM"  optional="true" help="Clean SAM" />  
+        <param name="num_threads" type="integer" value="" label="Number of Threads"  optional="true" help="Number of threads to use"/>
+        <param name="gc_on" type="integer" optional="true" min="0" max="2" label="GC On" help="GC On (0 to 2)"/>
+        <param name="timed" type="boolean" label="Timed"  optional="true" help="Timed" />  
+        <param name="reference_t_fai" type="data" format="fai" optional="true" label="Reference t (fai file)"  />
+        <param name="reference_T_fasta" type="data" format="fasta" optional="true" label="Reference T (fasta file)"  />
+        <param name="split_file" type="boolean" label="Split File"  optional="true" help="Split File" />  
+
+
+</inputs>
+  <outputs>
+        <data format="bam" name="output_file" label="${tool.name} on ${on_string}: output_file" from_work_dir="elprep_out/output_file" />
+  </outputs>
+  <help>
+
+**What it does**
+
+This tool wrapper calls Elprep program to Remove unmapped reads, Sort Contig order, Sort coordinate order, Marks duplicate reads and Add RG information in SAM/BAM files.
+
+Further details about elprep can be found at: https://github.com/exascience/elprep
+
+  </help>
+</tool>
+
