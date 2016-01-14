@@ -147,6 +147,7 @@ def run_mutect(args):
     subprocess.check_call( [sam_tools_exe_path, "faidx", ref_seq] )
     subprocess.check_call( [args['java'], "-jar",
         args['dict_jar'],
+        "CreateSequenceDictionary",
         "R=%s" % (ref_seq),
         "O=%s" % (ref_dict)
     ])
@@ -241,7 +242,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-b", type=long, help="Parallel Block Size", default=50000000)
 
-    parser.add_argument("--dict-jar", default=picard_path + "/CreateSequenceDictionary.jar")
+    parser.add_argument("--dict-jar", default=picard_path + "/picard.jar")
 
     args = parser.parse_args()
     run_mutect(vars(args))

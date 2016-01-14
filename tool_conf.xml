@@ -271,10 +271,12 @@
 	    <tool file="mutect/muTect.xml" />
     <label id="Breakdancer" text="Breakdancer version 1.4.5" />
             <tool file="breakdancer/breakdancer.xml" />
-    <label id="Pindel" text="Pindel 0.2.5a8" />
+    <label id="Pindel" text="Pindel 0.2.5b4" />
             <tool file="pindel/pindel.xml" />
-    <label id="VcfSorter" text="VCF Sorter" />
+    <label id="Somatic_custom_tools" text="Somatic Custom Tools" />
             <tool file="vcf_sorter/vcfsorter.xml" />
+            <tool file="interval_qc/interval_qc.xml"/>
+            <tool file="rem_dup_tandem/rem_dup_tandem.xml"/>
     <label id="TileDB" text="TileDB tools"/>
             <tool file="tiledb/tiledb_import.xml"/>
     <label id="Sambamba" text="Sambamba version 0.5.8" />
@@ -282,6 +284,8 @@
 	    <tool file="sambamba/sambamba_sort.xml" />
     <label id="BamUtil" text="BamUtil version 1.0.13" />
 	    <tool file="bamutil/bamutil_dedup.xml" />
+    <label id="Elprep" text="Elprep version 2.34"/>
+            <tool file="elprep/elprep.xml"/>
     <label id="BQSRGatherer" text="BaseRecalibrator Gatherer "/>
             <tool file="bqsr_gatherer/bqsr_gatherer.xml"/>
   </section>  
