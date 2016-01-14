@@ -85,8 +85,8 @@ class DRMAAJobRunner( AsynchronousJobRunner ):
         }
 
         if(self.app.config.use_CCC_DRMAA):
-            import CCCsession;
-            self.ds = CCCsession.Session();
+            import CCCsession_Change;
+            self.ds = CCCsession_Change.Session();
         else:
             self.ds = drmaa.Session()
         self.ds.initialize()
