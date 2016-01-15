@@ -31,6 +31,7 @@ def __main__():
     parser.add_option( '-s', '--fileSource', help='Whether to use a previously indexed reference sequence or one form history (indexed or history)' )
     parser.add_option( '-D', '--dbkey', help='Dbkey for reference genome' )
 
+    parser.add_option( '-i', '--intel_optimization', action='store_true', help='Intel Optimization flag for BWA-Mem' )
     parser.add_option( '-k', '--minSeedLength', type=int, help='Minimum seed length [19]' )
     parser.add_option( '-w', '--bandWidth', type=int, help='Band width for banded alignment [100]' )
     parser.add_option( '-d', '--offDiagonal', type=int, help='Off-diagonal X-dropoff [100]' )
@@ -145,10 +146,13 @@ def __main__():
     # set up aligning and generate aligning command args
     start_cmds = "bwa mem -t %s" % options.threads
     #if False:
+    # Optimization flag    
+    if options.intel_optimization:
+        start_cmds += ' -f'
     if options.interPairEnd:
         start_cmds += ' -p'
     if options.params != 'pre_set':
-	if options.minSeedLength is not None:
+        if options.minSeedLength is not None:
 	    start_cmds += " -k %d" % options.minSeedLength
 	if options.bandWidth is not None:
 	    start_cmds += " -w %d" % options.bandWidth
@@ -186,25 +190,26 @@ def __main__():
             if not options.rglb or not options.rgsm or not options.rglb:
                 sys.exit( 'If you want to specify read groups, you must include the ID, LB, and SM tags.') 
             #readGroup = '@RG\tID:%s\tLB:%s\tPL:%s\tSM:%s' % ( options.rgid, options.rglb, options.rgpl, options.rgsm )
-            readGroup = '@RG\tID:%s\tLB:%s\tSM:%s' % ( options.rgid, options.rglb, options.rgsm )
+            # Processing READGROUP with a literal tab character instead of \t to ensure the CL tag in @PG header can process the RG. 
+            readGroup = '@RG\\tID:%s\\tLB:%s\\tSM:%s' % ( options.rgid, options.rglb, options.rgsm )
             if options.rgpl:
-                readGroup += '\tPL:%s' % options.rgpl
+                readGroup += '\\tPL:%s' % options.rgpl
             if options.rgpu:
-                readGroup += '\tPU:%s' % options.rgpu
+                readGroup += '\\tPU:%s' % options.rgpu
             if options.rgcn:
-                readGroup += '\tCN:%s' % options.rgcn
+                readGroup += '\\tCN:%s' % options.rgcn
             if options.rgds:
-                readGroup += '\tDS:%s' % options.rgds
+                readGroup += '\\tDS:%s' % options.rgds
             if options.rgdt:
-                readGroup += '\tDT:%s' % options.rgdt
+                readGroup += '\\tDT:%s' % options.rgdt
             if options.rgfo:
-                readGroup += '\tFO:%s' % options.rgfo
+                readGroup += '\\tFO:%s' % options.rgfo
             if options.rgks:
-                readGroup += '\tKS:%s' % options.rgks
+                readGroup += '\\tKS:%s' % options.rgks
             if options.rgpg:
-                readGroup += '\tPG:%s' % options.rgpg
+                readGroup += '\\tPG:%s' % options.rgpg
             if options.rgpi:
-                readGroup += '\tPI:%s' % options.rgpi
+                readGroup += '\\tPI:%s' % options.rgpi
             start_cmds += " -R '%s'" % readGroup
 
     if options.genAlignType == 'paired':
@@ -219,6 +224,7 @@ def __main__():
         try:
             tmp = tempfile.NamedTemporaryFile( dir=tmp_dir ).name
             tmp_stderr = open( tmp, 'wb' )
+            print cmd
             proc = subprocess.Popen( args=cmd, shell=True, cwd=tmp_dir, stderr=tmp_stderr.fileno() )
             returncode = proc.wait()
             tmp_stderr.close()

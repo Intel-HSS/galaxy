@@ -2,8 +2,7 @@
 <toolbox>
   <section id="getextccc" name="Get CCC Data"> 
     <tool file="data_source/clinical_pathology_images.xml" />    
-    <tool file="data_source/genomes.xml" /> 
-	<tool file="data_source/rnaseq.xml" />    
+    <tool file="data_source/omics_data.xml" />
   </section>
   <section id="getext" name="Get Data">
     <tool file="data_source/upload.xml" />
@@ -145,6 +144,7 @@
     <tool file="maf/vcf_to_maf_customtrack.xml" />
     <!--<tool file="mutation/visualize.xml" />-->
     <tool file="mutsig_viz/mutsig_viz.xml" />
+    <tool file="hpt_visualizer/hpt_visualizer.xml" />
   </section>
   <section id="multVar" name="Multivariate Analysis">
     <!--<tool file="multivariate_stats/pca.xml" />-->
@@ -239,7 +239,7 @@
     <tool file="sum/sum_reduce.xml"/>
   </section>
   <section id="DNA_sequencing" name="DNA sequencing tools">
-    <label id="BWA" text="BWA-MEM 0.7.9a" />
+    <label id="BWA" text="BWA-MEM 0.7.12" />
 	    <tool file="bwa/bwa_mem.xml" />
     <label id="Samtools" text="Samtools version 0.1.19"/>
 	    <tool file="sam_to_bam/sam_to_bam.xml" />
@@ -248,18 +248,22 @@
     <label id="GATK" text="GATK version 3.2"/>
 	    <tool file="gatk/realigner_target_creator.xml" />
 	    <tool file="gatk/indel_realigner.xml" />
+	    <tool file="gatk/indel_realigner_sg.xml" />
 	    <tool file="gatk/base_recalibrator.xml" />
+	    <tool file="gatk/base_recalibrator_sg.xml" />
 	    <tool file="gatk/print_reads.xml" />
+	    <tool file="gatk/print_reads_sg.xml" />
 	    <tool file="gatk/haplotype_caller.xml"/>
 	    <tool file="gatk/unified_genotyper.xml"/>
 	    <tool file="gatk/depth_of_coverage.xml"/>
 	    <tool file="gatk/variant_filtration.xml"/>
 	    <tool file="gatk/variant_select.xml" />
-    <label id="Picard" text="Picard version 1.110"/>
-	    <tool file="picard/rgPicardMarkDups.xml" />
+   <label id="Picard" text="Picard version 1.135"/>
+	    <tool file="picard/picard_MarkDuplicates.xml" />
 	    <tool file="picard/picard_SamToFastq.xml" />
-	    <tool file="picard/rgPicardSamFormatConverter.xml" />
-	    <tool file="picard/rgPicardSortSam.xml" />
+	    <tool file="picard/picard_SamFormatConverter.xml" />
+	    <tool file="picard/picard_SortSam.xml" />
+	    <tool file="picard/picard_MergeSamFiles.xml" />
     <label id="BICSeq" text="BICSeq" />
 	    <tool file="Suzi_pipeline/Bic-Seq_samtools.xml" />
 	    <tool file="Suzi_pipeline/Bic-Seq.xml" /> 
@@ -267,14 +271,27 @@
 	    <tool file="mutect/muTect.xml" />
     <label id="Breakdancer" text="Breakdancer version 1.4.5" />
             <tool file="breakdancer/breakdancer.xml" />
-    <label id="Pindel" text="Pindel 0.2.5a8" />
+    <label id="Pindel" text="Pindel 0.2.5b4" />
             <tool file="pindel/pindel.xml" />
-    <label id="VcfSorter" text="VCF Sorter" />
+    <label id="Somatic_custom_tools" text="Somatic Custom Tools" />
             <tool file="vcf_sorter/vcfsorter.xml" />
+            <tool file="interval_qc/interval_qc.xml"/>
+            <tool file="rem_dup_tandem/rem_dup_tandem.xml"/>
     <label id="TileDB" text="TileDB tools"/>
             <tool file="tiledb/tiledb_import.xml"/>
+    <label id="Sambamba" text="Sambamba version 0.5.8" />
+	    <tool file="sambamba/sambamba_markdup.xml" />
+	    <tool file="sambamba/sambamba_sort.xml" />
+    <label id="BamUtil" text="BamUtil version 1.0.13" />
+	    <tool file="bamutil/bamutil_dedup.xml" />
+    <label id="Elprep" text="Elprep version 2.34"/>
+            <tool file="elprep/elprep.xml"/>
+    <label id="BQSRGatherer" text="BaseRecalibrator Gatherer "/>
+            <tool file="bqsr_gatherer/bqsr_gatherer.xml"/>
   </section>  
   <section id="RNA_sequencing" name="RNA sequencing tools">
+     <label id="star" text="Star Version 2.4.2a" />
+            <tool file="star/star.xml" />
      <label id="tophat2" text="Tophat2 version 2.0.14" />
             <tool file="tophat/tophat2_wrapper.xml" />
      <label id="cufflinks" text="Cufflinks version 2.2.1" />
@@ -301,6 +318,16 @@
   </section>
   <section id="variant_db_tools" name="Variant DB tools">
     <tool file="variant_db/variant_db_client.xml"/>
+  </section>
+  <section id="adam_tools" name="Adam tools">
+    <tool file="adam/adam_transform_bam_to_adam.xml" />
+    <tool file="adam/adam_convert_vcf_to_adam.xml" />
+    <tool file="adam/adam_flagstat.xml" />
+    <tool file="adam/adam_transform_sort.xml" />
+    <tool file="adam/adam_transform_mark_duplicates.xml" />
+    <tool file="adam/adam_transform_recalibrate_base_qualities.xml" />
+    <tool file="adam/adam_transform_realign_indels.xml" />
+    <tool file="adam/adam_gatk.xml" />
   </section>
   <section id="custom_tools" name="Custom tools">
   </section>
