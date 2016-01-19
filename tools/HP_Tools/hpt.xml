@@ -3,6 +3,7 @@
   <command>/bin/cat $dag > $hpt_output</command>
   <inputs>
     <param name="dag" type="data" format="txt" label="dag"/>
+    <param name="Gateway_Mapping" type="data" format="txt" label="Gateway_Mapping"/>
   </inputs>
   <outputs>
     <data name="hpt_output" label="hpt_output" format="input"/>
