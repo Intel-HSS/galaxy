@@ -3,7 +3,7 @@
 
   <command>export http_proxy=;
 	   export https_proxy=;
-  	   curl -k --config $configfile --request POST https://gateway.internal.ccc.org:9090/labkey/galaxyintegration/${containerPath}/importDataset.view? -s -S -u \${LABKEY_USERNAME}:\${LABKEY_PASSWORD} > $html_outfile
+  	   curl -k --config $configfile --request POST $hostname/galaxyintegration/${containerPath}/importDataset.view? -s -S -u \${LABKEY_USERNAME}:\${LABKEY_PASSWORD} > $html_outfile
   </command>
 
   <inputs>
